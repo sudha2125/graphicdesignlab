@@ -1,0 +1,1 @@
+CREATE TABLE tutorials (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), title TEXT NOT NULL, channel TEXT NOT NULL, duration TEXT NOT NULL, level TEXT NOT NULL, software TEXT NOT NULL, url TEXT NOT NULL);

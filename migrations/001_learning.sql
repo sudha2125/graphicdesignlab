@@ -1,0 +1,1 @@
+CREATE TABLE lessons (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), title TEXT NOT NULL, level TEXT NOT NULL, category TEXT NOT NULL DEFAULT 'Fundamentals', duration TEXT NOT NULL DEFAULT '20 min', lesson_order INT NOT NULL);

@@ -1,0 +1,1 @@
+CREATE TABLE lesson_progress (user_id TEXT NOT NULL, lesson_id UUID NOT NULL REFERENCES lessons(id) ON DELETE CASCADE, completed_at TIMESTAMPTZ NOT NULL DEFAULT now(), PRIMARY KEY (user_id, lesson_id));

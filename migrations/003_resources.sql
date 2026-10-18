@@ -1,0 +1,1 @@
+CREATE TABLE resources (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), name TEXT NOT NULL, category TEXT NOT NULL, pricing TEXT NOT NULL, description TEXT NOT NULL, url TEXT NOT NULL);

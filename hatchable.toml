@@ -1,0 +1,6 @@
+[auth]
+enabled = true
+providers = ["email", "google"]
+
+[project]
+name = "Graphic Design Learning Hub"

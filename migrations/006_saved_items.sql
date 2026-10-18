@@ -1,0 +1,1 @@
+CREATE TABLE saved_items (user_id TEXT NOT NULL, item_type TEXT NOT NULL, item_id UUID NOT NULL, saved_at TIMESTAMPTZ NOT NULL DEFAULT now(), PRIMARY KEY (user_id, item_type, item_id));
