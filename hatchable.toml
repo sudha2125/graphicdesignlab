@@ -4,3 +4,11 @@ providers = ["email", "google"]
 
 [project]
 name = "Graphic Design Learning Hub"
+
+[db.tables.saved_items]
+read = "own"
+write = "own"
+
+[db.tables.lesson_progress]
+read = "own"
+write = "own"
