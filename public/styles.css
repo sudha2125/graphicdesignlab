@@ -43,7 +43,7 @@ body{background:radial-gradient(circle at 12% 0%,rgba(80,105,255,.14),transparen
 .brand span{color:#8ea5ff!important;opacity:1!important;font-weight:800!important}
 .brand:hover{color:#ffffff!important}.brand:hover span{color:#a9baff!important}
 /* Final contrast fix for key navigation and action text */
-.brand,.brand:visited{color:#000000!important;background:#ffffff!important;opacity:1!important;text-shadow:none!important;padding:8px 11px!important;border-radius:10px!important;box-shadow:0 4px 16px rgba(0,0,0,.16)!important}.brand span{color:#0066ff!important;font-weight:900!important}.brand:hover{color:#000000!important;background:#ffffff!important}.brand:hover span{color:#0052cc!important}
+.brand,.brand:visited{color:#000000!important;background:#ffffff!important;opacity:1!important;text-shadow:0 0 10px rgba(255,255,255,.38)!important;padding:8px 11px!important;border-radius:10px!important;box-shadow:0 4px 16px rgba(0,0,0,.16),0 0 18px rgba(255,255,255,.10)!important;transition:color .2s ease,background .2s ease,box-shadow .2s ease,transform .2s ease}.brand span{color:#0066ff!important;font-weight:900!important;text-shadow:0 0 10px rgba(0,102,255,.22);transition:color .2s ease,text-shadow .2s ease}.brand:hover{color:#000000!important;background:#ffffff!important;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.20),0 0 22px rgba(255,255,255,.18)!important}.brand:hover span{color:#0052cc!important;text-shadow:0 0 16px rgba(0,102,255,.48)}
 .secondary,.secondary:visited{color:#f4f7fb!important;border-color:#44516a!important;background:#121925!important}
 .secondary:hover{color:#fff!important;background:#1a2435!important;border-color:#7185b0!important}
 .section-head .secondary{color:#ffffff!important}
