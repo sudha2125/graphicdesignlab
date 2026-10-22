@@ -15,7 +15,7 @@ html{background:#070a10}body{background:radial-gradient(ellipse at 12% 0%,rgba(7
 /* Final readability pass: dark theme wins over legacy light rules */
 body{background:radial-gradient(circle at 12% 0%,rgba(80,105,255,.14),transparent 28%),radial-gradient(circle at 88% 10%,rgba(0,210,255,.07),transparent 25%),#070a10!important;color:#f4f7fb!important}
 .topbar{background:rgba(7,10,16,.9)!important;border-color:#202938!important}
-.brand{color:#f8fafc!important}.brand span{color:#8da3ff!important}
+.brand{color:#111111!important;opacity:1!important;text-shadow:0 0 1px rgba(255,255,255,.55),0 0 10px rgba(255,255,255,.08)}.brand span{color:#3f6fff!important;opacity:1!important;font-weight:800!important}.brand:hover{color:#111111!important}.brand:hover span{color:#5f84ff!important}
 .navlinks button,.nav-action{color:#a8b2c2!important}.navlinks button:hover,.navlinks .active{background:rgba(255,255,255,.08)!important;color:#fff!important}
 .primary,.nav-action.primary{background:#6f8cff!important;color:#07101f!important;border-color:rgba(255,255,255,.12)!important}.primary:hover,.nav-action.primary:hover{background:#8ba2ff!important;color:#05070b!important}
 .hero h1,.section-head h2,.card h3,.lesson-page h1{color:#f7f9fc!important}.hero p,.section-head p,.card p,.lesson-meta{color:#a4adbc!important}
