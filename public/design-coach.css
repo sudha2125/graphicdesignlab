@@ -2,3 +2,15 @@
 
 /* Dark theme readability */
 .coach-page{color:#f4f7fb!important}.coach-upload,.coach-metric,.coach-recommendation{background:#0d111a!important;border-color:#293548!important;color:#f4f7fb!important}.coach-upload h3,.coach-score h3,.coach-improve-head h3,.coach-recommendation strong{color:#f8fafc!important}.coach-upload p,.coach-hint,.coach-metric p,.coach-improve-head p,.coach-recommendation p{color:#9ca8b8!important}.coach-metric-top b{color:#a9baff!important}.coach-bar{background:#202a39!important}.coach-badge{background:#18233a!important;color:#b8c8ff!important}.coach-preview-head{color:#f4f7fb!important}
+
+/* Design improvement plan: clearer spacing and readable recommendation layout */
+.coach-improve{padding:24px!important}
+.coach-improve-head{margin-bottom:18px!important}
+.coach-improve-head h3{line-height:1.2!important;margin:9px 0 8px!important}
+.coach-improve-head p{max-width:720px!important;line-height:1.65!important}
+.coach-recommendations{display:grid!important;gap:12px!important;margin-top:20px!important;border:0!important;border-radius:0!important;overflow:visible!important}
+.coach-recommendation{display:grid!important;grid-template-columns:128px minmax(0,1fr)!important;gap:20px!important;padding:18px 20px!important;border:1px solid #293548!important;border-radius:14px!important;background:#0d111a!important;align-items:start!important}
+.coach-recommendation>span{padding-top:3px!important;line-height:1.4!important;white-space:normal!important}
+.coach-recommendation strong{display:block!important;line-height:1.35!important;margin:0!important}
+.coach-recommendation p{margin:7px 0 0!important;line-height:1.65!important;max-width:720px!important}
+@media(max-width:700px){.coach-improve{padding:18px!important}.coach-recommendation{grid-template-columns:1fr!important;gap:8px!important;padding:16px!important}.coach-recommendation>span{padding-top:0!important}.coach-recommendation p{line-height:1.55!important}}
