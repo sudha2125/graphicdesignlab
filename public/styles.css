@@ -37,6 +37,11 @@ body{background:radial-gradient(circle at 12% 0%,rgba(80,105,255,.14),transparen
 .coach-upload{background:linear-gradient(145deg,#0d111a,#121c2d)!important;border-color:#35445e!important;color:#f5f7fb!important}.coach-upload p,.coach-hint,.coach-improve-head p,.coach-recommendation p,.coach-metric p{color:#9ca8b8!important}.coach-upload-icon{background:#6f8cff!important;color:#07101f!important}.coach-metric{background:#0d111a!important;border:1px solid #263244!important}.coach-metric-top b{color:#9db0ff!important}.coach-bar{background:#202a39!important}.coach-recommendation{background:#0d111a!important}.coach-badge{background:#18233a!important;color:#b8c8ff!important}
 .hero-art{box-shadow:0 28px 80px rgba(0,0,0,.5)!important}
 @media(max-width:560px){.hero h1{font-size:clamp(40px,12vw,52px)!important}.container{width:min(100% - 24px,1180px)!important}.navlinks{max-width:100%}.card{padding:20px}.section-head h2{font-size:28px}.hero-art{min-height:300px!important}.art-card .big{font-size:42px!important}}
+
+/* Final brand readability: keep DesignLab clearly visible on the homepage */
+.brand{color:#ffffff!important;opacity:1!important;text-shadow:0 0 18px rgba(255,255,255,.08)}
+.brand span{color:#8ea5ff!important;opacity:1!important;font-weight:800!important}
+.brand:hover{color:#ffffff!important}.brand:hover span{color:#a9baff!important}
 /* Final contrast fix for key navigation and action text */
 .brand,.brand:visited{color:#f8fafc!important;text-shadow:0 0 18px rgba(255,255,255,.08)}
 .brand span{color:#9db0ff!important}
