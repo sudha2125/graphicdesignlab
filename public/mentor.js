@@ -162,4 +162,23 @@
     state.view = 'mentor';
     window.render();
   };
+// Move Clear conversation into the conversation sidebar as a floating utility.
+  function placeClearConversationButton() {
+    if (state.view !== 'mentor') return;
+    const topButton = document.querySelector('.mentor-top-actions button.secondary');
+    if (topButton) topButton.style.display = 'none';
+    const sidebar = document.querySelector('.mentor-sidebar');
+    const newButton = sidebar && sidebar.querySelector('.mentor-new-button');
+    if (newButton && !sidebar.querySelector('.mentor-clear-floating')) {
+      const clear = document.createElement('button');
+      clear.className = 'mentor-clear-floating';
+      clear.type = 'button';
+      clear.innerHTML = '<span aria-hidden="true">×</span> Clear conversation';
+      clear.onclick = window.clearMentorConversation;
+      newButton.insertAdjacentElement('afterend', clear);
+    }
+  }
+  const mentorObserver = new MutationObserver(placeClearConversationButton);
+  mentorObserver.observe(document.documentElement, {childList:true, subtree:true});
+  document.addEventListener('DOMContentLoaded', placeClearConversationButton);
 })();
