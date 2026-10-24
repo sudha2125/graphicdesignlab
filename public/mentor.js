@@ -60,7 +60,7 @@
     return sorted.map(c => {
       const id = escapeHtml(c.id);
       const pinned = pins.includes(c.id);
-      return `<div class="mentor-history-row ${pinned ? 'pinned' : ''}"><button class="mentor-history-item ${c.id === currentConversationId ? 'active' : ''}" data-open-conversation="${id}"><span class="mentor-history-icon">${pinned ? '📌' : '↗'}</span><span class="mentor-history-title">${escapeHtml(c.title || 'Design conversation')}</span></button><button class="mentor-conversation-menu-trigger" type="button" data-menu-toggle="${id}" aria-label="Conversation options" title="Conversation options">⋯</button><div class="mentor-conversation-menu" data-menu-for="${id}" hidden><button type="button" data-pin-conversation="${id}">${pinned ? 'Unpin conversation' : 'Pin conversation'}</button><button type="button" class="danger" data-clear-conversation="${id}">Clear conversation</button></div></div>`;
+      return `<div class="mentor-history-row ${pinned ? 'pinned' : ''}"><button class="mentor-history-item ${c.id === currentConversationId ? 'active' : ''}" data-open-conversation="${id}"><span class="mentor-history-icon">${pinned ? '📌' : '↗'}</span><span class="mentor-history-title">${escapeHtml(c.title || 'Design conversation')}</span></button><button class="mentor-conversation-menu-trigger" type="button" data-menu-toggle="${id}" aria-label="Conversation options">⋯</button><div class="mentor-conversation-menu" data-menu-for="${id}" hidden><button type="button" data-pin-conversation="${id}">${pinned ? 'Unpin conversation' : 'Pin conversation'}</button><button type="button" class="danger" data-clear-conversation="${id}">Clear conversation</button></div></div>`;
     }).join('');
   }
   document.addEventListener('click', function(event) {
