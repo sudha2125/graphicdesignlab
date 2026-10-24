@@ -43,6 +43,7 @@ export default async function(req, res) {
   try {
     const result = await ai.generateText({
       purpose: 'design-review',
+      model: 'sonnet',
       userId: user.id,
       maxTokens: 7000,
       signal: AbortSignal.timeout(60000),
