@@ -120,7 +120,6 @@ export default async function(req, res) {
 
     const result = await ai.generateText({
       purpose: 'design-mentor-chat',
-      model: 'sonnet',
       userId,
       maxTokens: 1800,
       signal: AbortSignal.timeout(60000),

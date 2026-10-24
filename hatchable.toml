@@ -7,13 +7,24 @@ name = "Graphic Design Learning Hub"
 
 [ai]
 required = true
-providers = ["anthropic"]
-description = "Powers Design Mentor AI conversations and the AI Design Analyser for uploaded graphic designs."
+description = "Powers Design Mentor AI conversations and the AI Design Analyser for uploaded graphic designs, using the AI provider configured by the project owner."
 
 [db.tables.saved_items]
 read = "own"
 write = "own"
 
 [db.tables.lesson_progress]
+read = "own"
+write = "own"
+
+[db.tables.chat_conversations]
+read = "own"
+write = "own"
+
+[db.tables.chat_messages]
+read = "own"
+write = "own"
+
+[db.tables.design_reviews]
 read = "own"
 write = "own"
