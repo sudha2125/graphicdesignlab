@@ -5,6 +5,10 @@ providers = ["email", "google"]
 [project]
 name = "Graphic Design Learning Hub"
 
+[ai]
+required = true
+description = "Used for the AI Design Analyser to review uploaded graphic designs."
+
 [db.tables.saved_items]
 read = "own"
 write = "own"
