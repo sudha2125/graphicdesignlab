@@ -83,15 +83,18 @@
   });
   window.toggleMentorPin = function(id) {
     const pins = getPinnedMentorConversations();
-    localStorage.setItem('mentorPinnedConversations', JSON.stringify(pins.includes(id) ? pins.filter(x => x !== id) : pins.concat(id)));
+    const isPinned = pins.includes(id);
+    localStorage.setItem('mentorPinnedConversations', JSON.stringify(isPinned ? pins.filter(x => x !== id) : pins.concat(id)));
     refreshMentorSidebar();
+    if (typeof window.showToast === 'function') window.showToast(isPinned ? 'Unpinned' : 'Pinned');
   };
   window.clearSpecificMentorConversation = async function(id) {
-    if (sending || !confirm('Clear this conversation?')) return;
+    if (sending) return;
     try { await api('/chat', {method:'DELETE', body:JSON.stringify({conversation_id:id})}); }
-    catch (e) { alert('Could not clear this conversation. Please try again.'); return; }
+    catch (e) { if (typeof window.showToast === 'function') window.showToast('Could not clear conversation. Please try again.', 'error'); return; }
     if (currentConversationId === id) { currentConversationId = null; attachedReviewId = null; messages = []; renderMentorMessages(); }
     await refreshMentorSidebar();
+    if (typeof window.showToast === 'function') window.showToast('Cleared');
   };
 
   async function mentorPage() {
