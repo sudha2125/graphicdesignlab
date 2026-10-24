@@ -120,7 +120,7 @@ export default async function(req, res) {
 
     const result = await ai.generateText({
       purpose: 'design-mentor-chat',
-      model: 'gpt',
+      // Uses the project-wide AI_DEFAULT_MODEL selected in Hatchable Monitoring.
       userId,
       maxTokens: 1800,
       signal: AbortSignal.timeout(60000),

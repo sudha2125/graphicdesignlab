@@ -9,6 +9,20 @@ name = "Graphic Design Learning Hub"
 required = true
 description = "Powers Design Mentor AI conversations and the AI Design Analyser for uploaded graphic designs, using the AI provider configured by the project owner."
 
+[[config]]
+name = "ai_default_model"
+type = "select"
+label = "Default AI model"
+help = "Default model used by Design Mentor AI and the uploaded-design analyser."
+options = [
+  { value = "gemini", label = "Google Gemini Flash" },
+  { value = "gpt", label = "OpenAI GPT" },
+  { value = "sonnet", label = "Anthropic Claude Sonnet" },
+]
+default = "gemini"
+
+# AI_DEFAULT_MODEL is represented by the valid lowercase config key above.
+
 [db.tables.saved_items]
 read = "own"
 write = "own"

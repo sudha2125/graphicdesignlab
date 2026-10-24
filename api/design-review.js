@@ -43,7 +43,7 @@ export default async function(req, res) {
   try {
     const result = await ai.generateText({
       purpose: 'design-review',
-      model: 'sonnet',
+      // Uses the project-wide AI_DEFAULT_MODEL selected in Hatchable Monitoring.
       userId: user.id,
       maxTokens: 7000,
       signal: AbortSignal.timeout(60000),
