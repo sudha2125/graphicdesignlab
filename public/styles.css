@@ -120,4 +120,13 @@ section{padding-top:clamp(36px,4.2vw,58px);padding-bottom:clamp(36px,4.2vw,58px)
 /* User requested removal of the duplicate AI links from the hero and top navigation. Keep the floating AI Mentor button available. */
 .mentor-home-cta{display:none!important}
 .navlinks [data-mentor-nav]{display:none!important}
+
+/* YouTube tutorial cards: compact landscape thumbnails while keeping the full video image visible. */
+#video-grid .video-card{padding:18px}
+#video-grid .video-thumb{height:auto;aspect-ratio:16/9;max-height:150px;border-radius:12px}
+#video-grid .play-badge{width:42px;height:42px;font-size:17px}
+#video-grid .video-card h3{font-size:16px;line-height:1.4;margin:10px 0 6px}
+#video-grid .video-card p{font-size:13px}
+#video-grid .card-bottom{padding-top:13px}
+@media(max-width:600px){#video-grid .video-thumb{max-height:none}#video-grid .video-card{padding:15px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
