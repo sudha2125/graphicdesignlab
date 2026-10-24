@@ -60,10 +60,12 @@
     return sorted.map(c => {
       const id = escapeHtml(c.id);
       const pinned = pins.includes(c.id);
-      return '<div class="mentor-history-row ' + (pinned ? 'pinned' : '') + '"><button class="mentor-history-item ' + (c.id === currentConversationId ? 'active' : '') + '" data-open-conversation="' + id + '"><span class="mentor-history-icon">' + (pinned ? '📌' : '↗') + '</span><span class="mentor-history-title">' + escapeHtml(c.title || 'Design conversation') + '</span></button><button class="mentor-conversation-menu-trigger" type="button" data-menu-toggle="' + id + '" aria-label="Conversation options" title="Conversation options">⋯</button><div class="mentor-conversation-menu" data-menu-for="' + id + '" hidden><button type="button" data-pin-conversation="' + id + '">' + (pinned ? 'Unpin conversation' : 'Pin conversation') + '</button><button type="button" class="danger" data-clear-conversation="' + id + '">Clear conversation</button></div></div>';
+      return `<div class="mentor-history-row ${pinned ? 'pinned' : ''}"><button class="mentor-history-item ${c.id === currentConversationId ? 'active' : ''}" data-open-conversation="${id}"><span class="mentor-history-icon">${pinned ? '📌' : '↗'}</span><span class="mentor-history-title">${escapeHtml(c.title || 'Design conversation')}</span></button><button class="mentor-conversation-menu-trigger" type="button" data-menu-toggle="${id}" aria-label="Conversation options" title="Conversation options">⋯</button><div class="mentor-conversation-menu" data-menu-for="${id}" hidden><button type="button" data-pin-conversation="${id}">${pinned ? 'Unpin conversation' : 'Pin conversation'}</button><button type="button" class="danger" data-clear-conversation="${id}">Clear conversation</button></div></div>`;
     }).join('');
   }
   document.addEventListener('click', function(event) {
+    const fresh = event.target.closest('[data-new-conversation]');
+    if (fresh) { event.preventDefault(); window.newMentorConversation(); return; }
     const open = event.target.closest('[data-open-conversation]');
     const toggle = event.target.closest('[data-menu-toggle]');
     const pin = event.target.closest('[data-pin-conversation]');
@@ -95,10 +97,10 @@
   async function mentorPage() {
     let list = [];
     try { const data = await api('/chat'); list = data.conversations || []; } catch (e) {}
-    const sidebar = list.length ? list.map(c => '<button class="mentor-history-item ' + (c.id === currentConversationId ? 'active' : '') + '" onclick="loadMentorConversation(\'' + escapeHtml(c.id) + '\')"><span class="mentor-history-icon">↗</span><span>' + escapeHtml(c.title || 'Design conversation') + '</span></button>').join('') : '<p class="mentor-history-empty">Your conversations will appear here.</p>';
+    const sidebar = renderMentorHistory(list);
     const reviewBanner = attachedReviewId ? '<div class="mentor-context"><span>✦</span><div><b>Design analysis attached</b><small>Your mentor can refer to the specific scores, observations and recommendations from your review.</small></div><button onclick="detachMentorReview()" aria-label="Remove design context">×</button></div>' : '';
     const empty = messages.length ? '' : '<div class="mentor-welcome"><div class="mentor-avatar large">✳</div><span class="eyebrow">YOUR CREATIVE COACH</span><h1>Let’s make your next design stronger.</h1><p>Ask a question, explore a design principle, or get a practical exercise tailored to your skill level.</p><div class="mentor-prompt-grid">' + prompts.map(p => '<button onclick="useMentorPrompt(\'' + escapeHtml(p) + '\')"><span>↗</span>' + escapeHtml(p) + '</button>').join('') + '</div></div>';
-    shell('<div class="container mentor-layout"><aside class="mentor-sidebar"><div class="mentor-sidebar-head"><div><span class="eyebrow">YOUR WORKSPACE</span><h2>Conversations</h2></div><button class="mentor-icon-button" onclick="newMentorConversation()" title="New conversation" aria-label="New conversation">＋</button></div><button class="mentor-new-button" onclick="newMentorConversation()">＋ New conversation</button><div class="mentor-history">' + sidebar + '</div><div class="mentor-sidebar-note"><span>✳</span><p>Learn the principle.<br><b>Then put it into practice.</b></p></div></aside><section class="mentor-main"><div class="mentor-heading"><div class="mentor-avatar">✳</div><div><h1>Design Mentor AI</h1><p><span class="mentor-status-dot"></span> Your personal graphic design tutor</p></div><div class="mentor-top-actions"><button class="secondary" onclick="clearMentorConversation()">Clear conversation</button><button class="mentor-mobile-new" onclick="newMentorConversation()" aria-label="New conversation">＋</button></div></div>' + reviewBanner + '<div id="mentor-chat-scroll" class="mentor-chat-scroll"><div id="mentor-messages" class="mentor-messages">' + empty + '</div><div id="mentor-thinking" class="mentor-thinking" style="display:none"><span class="mentor-avatar">✳</span><div><b>Design Mentor is thinking...</b><div class="mentor-dots"><i></i><i></i><i></i></div></div></div></div><form class="mentor-composer" onsubmit="event.preventDefault();sendMentorMessage()"><textarea id="mentor-input" rows="1" maxlength="4000" placeholder="Ask anything about graphic design..." onkeydown="mentorInputKeydown(event)"></textarea><div class="mentor-composer-foot"><span>Clear questions lead to stronger designs.</span><button id="mentor-send" class="primary" type="submit"><span>Send</span><b>↑</b></button></div></form><p class="mentor-disclaimer">Design Mentor AI can make mistakes. Use its guidance as a starting point for your own design decisions.</p></section></div>');
+    shell('<div class="container mentor-layout"><aside class="mentor-sidebar"><div class="mentor-sidebar-head"><div><span class="eyebrow">YOUR WORKSPACE</span><h2>Conversations</h2></div><button class="mentor-icon-button" data-new-conversation title="New conversation" aria-label="New conversation">＋</button></div><button class="mentor-new-button" onclick="newMentorConversation()">＋ New conversation</button><div class="mentor-history">' + sidebar + '</div><div class="mentor-sidebar-note"><span>✳</span><p>Learn the principle.<br><b>Then put it into practice.</b></p></div></aside><section class="mentor-main"><div class="mentor-heading"><div class="mentor-avatar">✳</div><div><h1>Design Mentor AI</h1><p><span class="mentor-status-dot"></span> Your personal graphic design tutor</p></div><div class="mentor-top-actions"><button class="mentor-mobile-new" onclick="newMentorConversation()" aria-label="New conversation">＋</button></div></div>' + reviewBanner + '<div id="mentor-chat-scroll" class="mentor-chat-scroll"><div id="mentor-messages" class="mentor-messages">' + empty + '</div><div id="mentor-thinking" class="mentor-thinking" style="display:none"><span class="mentor-avatar">✳</span><div><b>Design Mentor is thinking...</b><div class="mentor-dots"><i></i><i></i><i></i></div></div></div></div><form class="mentor-composer" onsubmit="event.preventDefault();sendMentorMessage()"><textarea id="mentor-input" rows="1" maxlength="4000" placeholder="Ask anything about graphic design..." onkeydown="mentorInputKeydown(event)"></textarea><div class="mentor-composer-foot"><span>Clear questions lead to stronger designs.</span><button id="mentor-send" class="primary" type="submit"><span>Send</span><b>↑</b></button></div></form><p class="mentor-disclaimer">Design Mentor AI can make mistakes. Use its guidance as a starting point for your own design decisions.</p></section></div>');
     renderMentorMessages();
     if (attachedReviewId) {
       const context = document.querySelector('.mentor-context');
@@ -126,8 +128,7 @@
       const data = await api('/chat');
       const root = document.querySelector('.mentor-history');
       if (!root) return;
-      const list = data.conversations || [];
-      root.innerHTML = list.length ? list.map(c => '<button class="mentor-history-item ' + (c.id === currentConversationId ? 'active' : '') + '" onclick="loadMentorConversation(\'' + escapeHtml(c.id) + '\')"><span class="mentor-history-icon">↗</span><span>' + escapeHtml(c.title || 'Design conversation') + '</span></button>').join('') : '<p class="mentor-history-empty">Your conversations will appear here.</p>';
+      root.innerHTML = renderMentorHistory(data.conversations || []);
     } catch (e) {}
   }
 
@@ -204,23 +205,4 @@
     state.view = 'mentor';
     window.render();
   };
-// Move Clear conversation into the conversation sidebar as a floating utility.
-  function placeClearConversationButton() {
-    if (state.view !== 'mentor') return;
-    const topButton = document.querySelector('.mentor-top-actions button.secondary');
-    if (topButton) topButton.style.display = 'none';
-    const sidebar = document.querySelector('.mentor-sidebar');
-    const newButton = sidebar && sidebar.querySelector('.mentor-new-button');
-    if (newButton && !sidebar.querySelector('.mentor-clear-floating')) {
-      const clear = document.createElement('button');
-      clear.className = 'mentor-clear-floating';
-      clear.type = 'button';
-      clear.innerHTML = '<span aria-hidden="true">×</span> Clear conversation';
-      clear.onclick = window.clearMentorConversation;
-      newButton.insertAdjacentElement('afterend', clear);
-    }
-  }
-  const mentorObserver = new MutationObserver(placeClearConversationButton);
-  mentorObserver.observe(document.documentElement, {childList:true, subtree:true});
-  document.addEventListener('DOMContentLoaded', placeClearConversationButton);
 })();
