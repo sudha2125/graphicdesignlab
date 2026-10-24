@@ -50,6 +50,48 @@
     };
   }
 
+  function getPinnedMentorConversations() {
+    try { return JSON.parse(localStorage.getItem('mentorPinnedConversations') || '[]'); } catch (e) { return []; }
+  }
+  function renderMentorHistory(list) {
+    const pins = getPinnedMentorConversations();
+    const sorted = (list || []).slice().sort((a,b) => Number(pins.includes(b.id)) - Number(pins.includes(a.id)));
+    if (!sorted.length) return '<p class="mentor-history-empty">Your conversations will appear here.</p>';
+    return sorted.map(c => {
+      const id = escapeHtml(c.id);
+      const pinned = pins.includes(c.id);
+      return '<div class="mentor-history-row ' + (pinned ? 'pinned' : '') + '"><button class="mentor-history-item ' + (c.id === currentConversationId ? 'active' : '') + '" data-open-conversation="' + id + '"><span class="mentor-history-icon">' + (pinned ? '📌' : '↗') + '</span><span class="mentor-history-title">' + escapeHtml(c.title || 'Design conversation') + '</span></button><button class="mentor-conversation-menu-trigger" type="button" data-menu-toggle="' + id + '" aria-label="Conversation options" title="Conversation options">⋯</button><div class="mentor-conversation-menu" data-menu-for="' + id + '" hidden><button type="button" data-pin-conversation="' + id + '">' + (pinned ? 'Unpin conversation' : 'Pin conversation') + '</button><button type="button" class="danger" data-clear-conversation="' + id + '">Clear conversation</button></div></div>';
+    }).join('');
+  }
+  document.addEventListener('click', function(event) {
+    const open = event.target.closest('[data-open-conversation]');
+    const toggle = event.target.closest('[data-menu-toggle]');
+    const pin = event.target.closest('[data-pin-conversation]');
+    const clear = event.target.closest('[data-clear-conversation]');
+    if (toggle) {
+      event.stopPropagation();
+      const id = toggle.getAttribute('data-menu-toggle');
+      document.querySelectorAll('.mentor-conversation-menu').forEach(menu => menu.hidden = menu.dataset.menuFor !== id || !menu.hidden);
+      return;
+    }
+    if (pin) { event.stopPropagation(); window.toggleMentorPin(pin.getAttribute('data-pin-conversation')); return; }
+    if (clear) { event.stopPropagation(); window.clearSpecificMentorConversation(clear.getAttribute('data-clear-conversation')); return; }
+    if (open) { window.loadMentorConversation(open.getAttribute('data-open-conversation')); return; }
+    document.querySelectorAll('.mentor-conversation-menu').forEach(menu => menu.hidden = true);
+  });
+  window.toggleMentorPin = function(id) {
+    const pins = getPinnedMentorConversations();
+    localStorage.setItem('mentorPinnedConversations', JSON.stringify(pins.includes(id) ? pins.filter(x => x !== id) : pins.concat(id)));
+    refreshMentorSidebar();
+  };
+  window.clearSpecificMentorConversation = async function(id) {
+    if (sending || !confirm('Clear this conversation?')) return;
+    try { await api('/chat', {method:'DELETE', body:JSON.stringify({conversation_id:id})}); }
+    catch (e) { alert('Could not clear this conversation. Please try again.'); return; }
+    if (currentConversationId === id) { currentConversationId = null; attachedReviewId = null; messages = []; renderMentorMessages(); }
+    await refreshMentorSidebar();
+  };
+
   async function mentorPage() {
     let list = [];
     try { const data = await api('/chat'); list = data.conversations || []; } catch (e) {}
