@@ -7,6 +7,7 @@ name = "Graphic Design Learning Hub"
 
 [ai]
 required = true
+providers = ["anthropic"]
 description = "Used for the AI Design Analyser to review uploaded graphic designs."
 
 [db.tables.saved_items]
