@@ -17,3 +17,19 @@ write = "own"
 [db.tables.lesson_progress]
 read = "own"
 write = "own"
+
+[db.tables.chat_conversations]
+read = "own"
+write = "own"
+
+[db.tables.chat_messages]
+read = "own"
+write = "own"
+
+[db.tables.design_reviews]
+read = "own"
+write = "own"
+
+[db.tables.user_profiles]
+read = "own"
+write = "own"

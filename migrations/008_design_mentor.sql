@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS chat_conversations (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), user_id text NOT NULL, title text NOT NULL DEFAULT 'New design conversation', created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+CREATE INDEX IF NOT EXISTS chat_conversations_user_idx ON chat_conversations(user_id, updated_at DESC);
+CREATE TABLE IF NOT EXISTS chat_messages (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), conversation_id uuid NOT NULL REFERENCES chat_conversations(id) ON DELETE CASCADE, user_id text NOT NULL, role text NOT NULL CHECK (role IN ('user','assistant')), content text NOT NULL, created_at timestamptz NOT NULL DEFAULT now());
+CREATE INDEX IF NOT EXISTS chat_messages_conversation_idx ON chat_messages(conversation_id, created_at ASC);
+CREATE INDEX IF NOT EXISTS chat_messages_user_idx ON chat_messages(user_id, created_at DESC);
