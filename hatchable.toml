@@ -42,3 +42,7 @@ write = "own"
 [db.tables.design_reviews]
 read = "own"
 write = "own"
+
+[db.tables.user_profiles]
+read = "own"
+write = "own"
