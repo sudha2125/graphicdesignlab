@@ -1,8 +1,0 @@
-CREATE TABLE IF NOT EXISTS user_profiles (
-  user_id TEXT PRIMARY KEY,
-  full_name TEXT NOT NULL DEFAULT '',
-  skill_level TEXT NOT NULL DEFAULT '',
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
-
-ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;

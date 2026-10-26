@@ -1,4 +1,4 @@
-import { ai, db, storage } from 'hatchable';
+import { ai, storage } from 'hatchable';
 
 export const methods = ['POST'];
 export const access = 'user';
@@ -43,7 +43,7 @@ export default async function(req, res) {
   try {
     const result = await ai.generateText({
       purpose: 'design-review',
-      model: 'gemini',
+      model: 'sonnet',
       userId: user.id,
       maxTokens: 7000,
       signal: AbortSignal.timeout(60000),
@@ -58,9 +58,8 @@ export default async function(req, res) {
     });
     if (result.finishReason === 'length') return res.status(502).json({ error: 'The AI analysis was truncated. Please try again.' });
     const analysis = cleanJson(result.text);
-    const saved = await db.query('INSERT INTO design_reviews (user_id, analysis) VALUES ($1, $2::jsonb) RETURNING id', [String(user.id), JSON.stringify(analysis)]);
     if (storageKey) { try { await storage.del(storageKey); } catch {} }
-    res.json({ analysis, analysis_id: saved.rows[0].id });
+    res.json({ analysis });
   } catch (error) {
     console.error('design-review failed', error);
     if (storageKey) { try { await storage.del(storageKey); } catch {} }
