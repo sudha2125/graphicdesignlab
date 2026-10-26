@@ -69,7 +69,7 @@ export default async function(req, res) {
         role: 'user',
         content: [
           { type: 'text', text: 'Inspect this exact uploaded image and return the requested JSON report. Scores are out of 100. Be specific and honest; do not infer invisible details.' },
-          { type: 'image_url', image_url: { url: imageUrl } }
+          { type: 'image', image: imageUrl }
         ]
       }]
     });

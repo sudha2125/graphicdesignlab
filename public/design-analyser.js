@@ -1,12 +1,20 @@
-/* Design Analyser navigation enhancement only. Never substitute heuristic/demo scores when the vision model fails. */
+/* Keep Design Analyser reachable from the existing navigation without replacing other modules. */
 (function(){
-  const originalNav = window.nav;
-  if (typeof originalNav === 'function') {
-    window.nav = function() {
-      let html = originalNav();
-      const button = '<button data-design-analyser-nav class="' + (window.state && window.state.view === 'coach' ? 'active' : '') + '" onclick="go(\'coach\')">Design Analyser</button>';
-      if (!html.includes('data-design-analyser-nav')) html = html.replace('</nav>', button + '</nav>');
-      return html;
-    };
+  function addAnalyserLink(){
+    const nav=document.querySelector('.topbar .navlinks');
+    if(!nav || nav.querySelector('[data-design-analyser-link]')) return;
+    const button=document.createElement('button');
+    button.type='button';
+    button.dataset.designAnalyserLink='true';
+    button.textContent='Design Analyser';
+    if(location.hash==='#design-analyser') button.classList.add('active');
+    button.addEventListener('click',function(){
+      if(typeof window.go==='function') window.go('coach');
+      else { const homeCard=[...document.querySelectorAll('button')].find(x=>x.textContent.includes('Design Analyser')); if(homeCard)homeCard.click(); }
+    });
+    nav.appendChild(button);
   }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addAnalyserLink);
+  addAnalyserLink();
+  new MutationObserver(addAnalyserLink).observe(document.documentElement,{childList:true,subtree:true});
 })();
