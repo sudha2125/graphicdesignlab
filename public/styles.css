@@ -43,7 +43,7 @@ body{background:radial-gradient(circle at 12% 0%,rgba(80,105,255,.14),transparen
 /* Homepage spacing and dedicated Design Mentor AI feature */
 .navlinks button[onclick="go('mentor')"]{display:none!important}
 main:has(.hero)>.container{width:min(1360px,calc(100% - 72px))!important}
-.hero{grid-template-columns:minmax(0,1.05fr) minmax(380px,.95fr);gap:clamp(36px,5vw,76px);padding-top:76px;padding-bottom:64px}
+.hero{grid-template-columns:minmax(0,1.2fr) minmax(340px,.8fr);gap:clamp(28px,3.5vw,52px);padding-top:76px;padding-bottom:64px}.hero>div:first-child{min-width:0}.hero h1{max-width:none;width:100%;font-size:clamp(46px,5.9vw,78px);letter-spacing:-.067em}.hero p{max-width:620px}
 .hero .actions{gap:16px;margin-top:30px}
 .hero .actions button{min-width:158px;min-height:48px;padding:13px 22px}
 main:has(.hero) .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
