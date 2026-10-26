@@ -7,28 +7,13 @@ name = "Graphic Design Learning Hub"
 
 [ai]
 required = true
-description = "Used for Design Mentor AI and AI-powered design review. Supports the configured AI provider."
+providers = ["anthropic"]
+description = "Used for the AI Design Analyser to review uploaded graphic designs."
 
 [db.tables.saved_items]
 read = "own"
 write = "own"
 
 [db.tables.lesson_progress]
-read = "own"
-write = "own"
-
-[db.tables.chat_conversations]
-read = "own"
-write = "own"
-
-[db.tables.chat_messages]
-read = "own"
-write = "own"
-
-[db.tables.design_reviews]
-read = "own"
-write = "own"
-
-[db.tables.user_profiles]
 read = "own"
 write = "own"
