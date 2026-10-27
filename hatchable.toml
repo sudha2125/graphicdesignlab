@@ -46,3 +46,7 @@ write = "own"
 [db.tables.user_profiles]
 read = "own"
 write = "own"
+
+[db.tables.fundamentals_progress]
+read = "own"
+write = "own"
