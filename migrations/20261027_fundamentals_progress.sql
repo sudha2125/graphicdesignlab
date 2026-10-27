@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS fundamentals_progress (user_id text NOT NULL, lesson_key text NOT NULL, quiz_score integer NOT NULL DEFAULT 0, practice_completed boolean NOT NULL DEFAULT false, lesson_completed boolean NOT NULL DEFAULT false, updated_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY(user_id,lesson_key));
+CREATE INDEX IF NOT EXISTS fundamentals_progress_user_idx ON fundamentals_progress(user_id);
